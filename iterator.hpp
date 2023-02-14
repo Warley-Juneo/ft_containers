@@ -1,55 +1,92 @@
 #pragma once
 
-#include "vector.hpp"
+#include <cstddef>
 
-template <typename T>
-class iterator {
-	public:
-		iterator(ft::vector<T>::iterator it) : _it(it) {};
-		~iterator() {};
+// talvez essa seja a iterator;
 
-		T &operator*() const {
-			return *_it;
-		};
+namespace ft {
+  template <class Category, class T, class Distance = std::ptrdiff_t, class Pointer = T*, class Reference = T&>
+  class iterator {
 
-		iterator &operator++() {
-			++_it;
-			return *this;
-		};
+  typedef typename iterator_category      Category;
+  typedef typename value_type             T;
+  typedef typename difference_type        Distance;
+  typedef typename pointer                Pointer;
+  typedef typename reference              Reference;
+  
+  public:
+    explicit iterator(T *it) : _it(it){};
+    ~iterator(){};
 
-		iterator operator++(int) {
-			T temp;
+    /////////////////// Dereference operator ///////////////////
+    T &operator*() const {
+      return *_it;
+    };
+    /////////////////////////////////////////////////////////
 
-			temp = this->_it;
-			this->_it++;
-			return temp;
-		};
+    /////////////////// Increment / Decrement ///////////////////
+    iterator &operator++() {
+      ++_it;
+      return *this;
+    };
 
-		iterator &operator--() {
-			--_it;
-			return *this;
-		};
+    iterator operator++(int) {
+      T temp;
 
-		iterator operator--(int) {
-			T temp;
+      temp = this->_it;
+      this->_it++;
+      return temp;
+    };
 
-			temp = this->_it;
-			this->_it--;
-			return temp;
-		};
+    iterator &operator--() {
+      --_it;
+      return *this;
+    };
 
-		bool operator!=(const iterator &other) const {
-			return _it != other._it;
-		};
+    iterator operator--(int) {
+      T temp;
 
-		bool operator==(const iterator &other) const {
-			return _it == other._it;
-		};
+      temp = this->_it;
+      this->_it--;
+      return temp;
+    };
+    /////////////////////////////////////////////////////////
 
-		iterator begin() {
-			return iterator(_data.begin());
-		};
-	protected:
-		std::vector<T>::iterator _it;
-		std::vector<T>					_data;
-};
+    /////////////////// Equivalence operators ///////////////////
+    bool operator!=(const iterator &other) const {
+      return _it != other._it;
+    };
+    bool operator==(const iterator &other) const {
+      return _it == other._it;
+    };
+    /////////////////////////////////////////////////////////
+
+    /////////////////// Relational Operators ///////////////////
+    bool operator<(const iterator &other) const {
+      return _it < other._it;
+    };
+    bool operator>(const iterator &other) const {
+      return _it > other._it;
+    };
+    bool operator<=(const iterator &other) const {
+      return _it <= other._it;
+    };
+    bool operator>=(const iterator &other) const {
+      return _it >= other._it;
+    };
+    /////////////////////////////////////////////////////////
+
+    /////////////////// Assignment Operations ///////////////////
+    iterator &operator+=(const int &n) {
+      _it += n;
+      return *this;
+    };
+    iterator &operator-=(const int &n) {
+      _it -= n;
+      return *this;
+    }
+    /////////////////////////////////////////////////////////
+  private:
+    T *_it;
+  };
+}
