@@ -2,7 +2,7 @@ SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 
 CC = g++
-CFLAGS = -std=c++98 -g3 -Wall -Wextra -Werror
+CFLAGS = -g3 -Wall -Wextra -Werror
 
 NAME = containers
 

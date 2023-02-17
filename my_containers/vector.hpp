@@ -7,20 +7,23 @@
 #include <new>
 
 
-#include "iterator.hpp"
-#include "iterator_utils.hpp"
+#include "../random_access_iterator.hpp"
+#include "../iterator_utils.hpp"
+#include "../utils/enable_if.hpp"
+#include "../utils/is_integral.hpp"
 
 namespace ft {
 	template <class T, class Allocator = std::allocator<T> >
 	class vector {
-		typedef T																								value_type;
-		typedef typename Allocator::pointer											pointer;
-		typedef typename Allocator::const_pointer         			const_pointer;
-    typedef typename Allocator::reference         					reference;
-    typedef typename Allocator::const_reference   					const_reference;
-		typedef size_t																					size_type;
-		typedef Allocator																				allocator_type;
-		typedef typename ft::iterator<pointer>									iterator;
+		typedef T																										value_type;
+		typedef typename Allocator::pointer													pointer;
+		typedef typename Allocator::const_pointer         					const_pointer;
+    typedef typename Allocator::reference         							reference;
+    typedef typename Allocator::const_reference   							const_reference;
+		typedef size_t																							size_type;
+		typedef Allocator																						allocator_type;
+		typedef typename ft::random_access_iterator<pointer>				iterator;
+		typedef typename ft::random_access_iterator<const_pointer> 	const_iterator;
 
 		public:
 			explicit vector(const allocator_type &alloc = allocator_type()) {
@@ -50,7 +53,7 @@ namespace ft {
 			};
 			
 			template <class InputIterator>
-			vector(InputIterator first, InputIterator last, const allocator_type &alloc = allocator_type()) {
+			vector(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0, const allocator_type &alloc = allocator_type()) {
 				size_type n = ft::distance(first, last);
 				_sizeT = n;
 				_alloc = alloc;
@@ -68,8 +71,16 @@ namespace ft {
 				}
 			}
 
-			// vector(const vector &src);
+			vector(const vector &src) {
+				_sizeT = src._sizeT;
+				_alloc = src._alloc;
+				_valueT = src._valueT;
+				_data = _alloc.allocate(_sizeT);
 
+				for (size_type it = 0; it < _sizeT; it++) {
+					_alloc.construct(_data + it, src._data[it]);
+				}
+			}
 
 			T &operator[](size_type idx) {
 				return _data[idx];
@@ -82,6 +93,10 @@ namespace ft {
 			iterator begin() {
 				return iterator(_data);
 			};
+
+			const_iterator begin() const {
+				return const_iterator(_data);
+			}
 
 			iterator end() {
 				return iterator(_data + _sizeT);

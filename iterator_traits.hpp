@@ -1,34 +1,42 @@
 #pragma once
 
-#include "iterator.hpp"
+#include "random_access_iterator.hpp" 
 #include <cstddef>
 
 namespace ft {
-	template <class Iter>
+	template <class Category, class T, class Distance = ptrdiff_t, class Pointer = T*, class Reference = T&>
+    struct iterator {
+      typedef T         													value_type;
+      typedef Distance  													difference_type;
+      typedef Pointer   													pointer;
+      typedef Reference 													reference;
+			typedef std::random_access_iterator_tag			iterator_category;
+    };
+
+	template <typename Iter>
 	struct iterator_traits {
-		typedef typename difference_type 			Iter::difference_type;
-		typedef typename value_type 					Iter::value_type;
-		typedef typename pointer 							Iter::pointer;
-		typedef typename reference 						Iter::reference;
-		typedef typename iterator_category 		Iter::iterator_category;
+		typedef typename Iter::difference_type				difference_type;
+		typedef typename Iter::value_type							value_type;
+		typedef typename Iter::pointer								pointer;
+		typedef typename Iter::reference							reference;
+		typedef std::random_access_iterator_tag				iterator_category;
 	};
 
-	template <class T>
+	template <typename T>
 	struct iterator_traits<T*> {
-		typedef typename difference_type 				std::ptrdiff_t;
-		typedef typename value_type 						T;
-		typedef typename pointer 								const T *;
-		typedef typename reference 							const T &;
-		// typedef typename iterator_category   ft::random_access_iterator_tag;
-		// typedef typename iterator_concept    ft::contiguous_iterator_tag;
+		typedef std::ptrdiff_t												difference_type;
+		typedef T 																		value_type;
+		typedef T* 																		pointer;
+		typedef T&																		reference;
+		typedef std::random_access_iterator_tag				iterator_category;
 	};
 
-	template <class T>
+	template <typename T>
 	struct iterator_traits<const T*> {
-		typedef typename difference_type 				std::ptrdiff_t;
-		typedef typename difference_type 				T;
-		typedef typename pointer const 					T*;
-		typedef typename reference const 				T&;
-		// typedef typename iterator_category   std::random_access_iterator_tag;
+		typedef std::ptrdiff_t												difference_type;
+		typedef T 																		value_type;
+		typedef const T* 															pointer;
+		typedef const T& 															reference;
+		typedef std::random_access_iterator_tag				iterator_category;
 	};
 }

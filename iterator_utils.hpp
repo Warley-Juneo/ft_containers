@@ -5,6 +5,11 @@
 namespace ft {
   template <class InputIt>
   typename ft::iterator_traits<InputIt>::difference_type distance(InputIt first, InputIt last) {
-    return last - first;
+    typename ft::iterator_traits<InputIt>::difference_type  result = 0;
+    while (first <= last) {
+      result++;
+      first++;
+    }
+    return result;
   };
 }
