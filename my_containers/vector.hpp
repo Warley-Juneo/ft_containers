@@ -15,17 +15,22 @@
 namespace ft {
 	template <class T, class Allocator = std::allocator<T> >
 	class vector {
-		typedef T																										value_type;
-		typedef typename Allocator::pointer													pointer;
-		typedef typename Allocator::const_pointer         					const_pointer;
-    typedef typename Allocator::reference         							reference;
-    typedef typename Allocator::const_reference   							const_reference;
-		typedef size_t																							size_type;
-		typedef Allocator																						allocator_type;
-		typedef typename ft::random_access_iterator<pointer>				iterator;
-		typedef typename ft::random_access_iterator<const_pointer> 	const_iterator;
 
 		public:
+			typedef T																															value_type;
+			typedef Allocator																											allocator_type;
+			typedef typename Allocator::reference         												reference;
+			typedef typename Allocator::pointer																		pointer;
+			typedef typename Allocator::const_pointer         										const_pointer;
+			typedef typename Allocator::const_reference   												const_reference;
+			typedef typename ft::random_access_iterator<pointer>									iterator;
+			typedef typename ft::random_access_iterator<const_pointer> 						const_iterator;
+			typedef typename ft::random_access_iterator<iterator>									reverse_iterator;
+			typedef typename ft::random_access_iterator<const_iterator>						const_reverse_iterator;
+			typedef typename ft::iterator_traits<iterator>::difference_type				difference_type;
+			typedef size_t																												size_type;
+
+		/////////////////////////// Construtores ///////////////////////////
 			explicit vector(const allocator_type &alloc = allocator_type()) {
 				_alloc = alloc;
 				_sizeT = 0;
@@ -69,9 +74,21 @@ namespace ft {
 				} catch (std::bad_alloc& e) {
 					std::cerr << "Error: Memory allocation failure: " << e.what() << std::endl;
 				}
-			}
+			};
 
 			vector(const vector &src) {
+				_sizeT = 0;
+				_alloc = src._alloc;
+				_valueT = 0;
+				_data = NULL;
+
+				*this = src; 
+			};
+			
+			vector &operator=(const vector& src) {
+				if (this == &src) {
+					return *this;
+				}
 				_sizeT = src._sizeT;
 				_alloc = src._alloc;
 				_valueT = src._valueT;
@@ -80,7 +97,8 @@ namespace ft {
 				for (size_type it = 0; it < _sizeT; it++) {
 					_alloc.construct(_data + it, src._data[it]);
 				}
-			}
+				return *this;
+			};
 
 			T &operator[](size_type idx) {
 				return _data[idx];
@@ -96,10 +114,14 @@ namespace ft {
 
 			const_iterator begin() const {
 				return const_iterator(_data);
-			}
+			};
 
 			iterator end() {
 				return iterator(_data + _sizeT);
+			};
+
+			const_iterator ent() const {
+				return const_iterator(_data + _sizeT);
 			};
 
 		~vector() {
@@ -109,7 +131,8 @@ namespace ft {
 			_alloc.deallocate(_data, _sizeT);
 			_sizeT = 0;
 			_valueT = 0;
-		}
+		};
+
 		protected:
 			std::allocator<T> 		_alloc;
 			size_type							_sizeT;

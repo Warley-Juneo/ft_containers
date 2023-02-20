@@ -24,8 +24,9 @@ namespace ft {
     reference operator*() const {
       return *_it;
     };
-    /////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////
+    
     T* getIterator() const {
       return (_it);
     };
@@ -47,53 +48,49 @@ namespace ft {
       return (random_access_iterator(_it++));
     };
 
-    // random_access_iterator &operator--() {
-    //   --_it;
-    //   return *this;
-    // };
+    random_access_iterator &operator--() {
+      --_it;
+      return *this;
+    };
 
-    // random_access_iterator operator--(int) {
-    //   T temp;
-
-    //   temp = this->_it;
-    //   this->_it--;
-    //   return temp;
-    // };
+    random_access_iterator operator--(int) {
+      return (random_access_iterator(_it--));
+    };
     /////////////////////////////////////////////////////////
 
     /////////////////// Equivalence operators ///////////////////
     bool operator!=(const random_access_iterator &other) const {
       return _it != other._it;
     };
-    // bool operator==(const random_access_iterator &other) const {
-    //   return _it == other._it;
-    // };
+    bool operator==(const random_access_iterator &other) const {
+      return _it == other._it;
+    };
     /////////////////////////////////////////////////////////
 
     /////////////////// Relational Operators ///////////////////
-    // bool operator<(const random_access_iterator &other) const {
-    //   return _it < other._it;
-    // };
-    // bool operator>(const random_access_iterator &other) const {
-    //   return _it > other._it;
-    // };
+    bool operator<(const random_access_iterator &other) const {
+      return _it < other._it;
+    };
+    bool operator>(const random_access_iterator &other) const {
+      return _it > other._it;
+    };
     bool operator<=(const random_access_iterator &other) const {
       return _it <= other._it;
     };
-    // bool operator>=(const random_access_iterator &other) const {
-    //   return _it >= other._it;
-    // };
+    bool operator>=(const random_access_iterator &other) const {
+      return _it >= other._it;
+    };
     /////////////////////////////////////////////////////////
 
     /////////////////// Assignment Operations ///////////////////
-    // random_access_iterator &operator+=(const int &n) {
-    //   _it += n;
-    //   return *this;
-    // };
-    // random_access_iterator &operator-=(const int &n) {
-    //   _it -= n;
-    //   return *this;
-    // }
+    random_access_iterator &operator+=(const int &n) {
+      _it += n;
+      return *this;
+    };
+    random_access_iterator &operator-=(const int &n) {
+      _it -= n;
+      return *this;
+    }
     /////////////////////////////////////////////////////////
   protected:
     iterator_type   _it;

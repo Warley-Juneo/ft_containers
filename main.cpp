@@ -12,32 +12,42 @@
 
 #include "./my_containers/vector.hpp"
 #include <iostream>
-
-int main() {
-	// ft::vector<int> first;
-	ft::vector<int> second(4, 100);
-	// std::cout << std::endl;
-	// for (size_t i = 0; i < second.size(); i++) {
-	// 	std::cout << second[i] << " ";
-	// }
-	ft::vector<int> third(second.begin(), second.end() - 1);
-	// for (size_t i = 0; i < third.size(); i++) {
-	// 	std::cout << third[i] << " ";
-	// }
-
-	ft::vector<int> fourth (third);
-	for (size_t i = 0; i < fourth.size(); i++) {
-		std::cout << fourth[i] << " ";
-	}
+#include "utils/equal.hpp"
+#include "utils/pair.hpp"
 
 	// the iterator constructor can also be used to construct from arrays:
 	// int myints[] = {5, 9, 16, 19};
-	// ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int) );
-
-	// std::cout << "The contents of fifth are:";
-	// for (ft::vector<int>::iterator it = fifth.begin(); it !=  fifth.end(); ++i);
+	// ft::vector<int> fifth (myints, myints + sizeof(myints) / sizeof(int));
+	// for (ft::vector<int>::iterator it = fifth.begin(); it !=  fifth.end(); ++it) {
 	// 	std::cout << ' ' << *it;
+	// }
 	// std::cout << '\n';
+	// std::cout << '\n';
+	// return 0;
 
-	return 0;
+	////////////////////////////////////////////////////////////////////////////////
+	// bool mypredicate (int i, int j) {
+  // return (i==j);
+
+	// int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
+  // ft::vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
+
+  // // using default comparison:
+  // if ( ft::equal (myvector.begin(), myvector.end(), myints) )
+  //   std::cout << "The contents of both sequences are equal.\n";
+  // else
+  //   std::cout << "The contents of both sequences differ.\n";
+
+  // myvector[3]= 81;                                 // myvector: 20 40 60 81 100
+
+  // // using predicate comparison:
+  // if ( ft::equal (myvector.begin(), myvector.end(), myints, &mypredicate) )
+  //   std::cout << "The contents of both sequences are equal.\n";
+  // else
+  //   std::cout << "The contents of both sequences differ.\n";
+
+  // return 0;
+
+int main () {
+	return (0);
 }
