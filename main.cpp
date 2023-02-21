@@ -14,6 +14,7 @@
 #include <iostream>
 #include "utils/equal.hpp"
 #include "utils/pair.hpp"
+#include "reverse_iterator.hpp"
 
 	// the iterator constructor can also be used to construct from arrays:
 	// int myints[] = {5, 9, 16, 19};
@@ -28,8 +29,9 @@
 	////////////////////////////////////////////////////////////////////////////////
 	// bool mypredicate (int i, int j) {
   // return (i==j);
+  // }
 
-	// int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
+  // int myints[] = {20,40,60,80,100};               //   myints: 20 40 60 80 100
   // ft::vector<int>myvector (myints,myints+5);     // myvector: 20 40 60 80 100
 
   // // using default comparison:
@@ -45,8 +47,6 @@
   //   std::cout << "The contents of both sequences are equal.\n";
   // else
   //   std::cout << "The contents of both sequences differ.\n";
-
-  // return 0;
 
 int main () {
 	return (0);
